@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "interview-task"
+version = "0.1.0"
+description = "Test automation interview task: Playwright UI and API tests."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.14"
+dependencies = [
+    "playwright>=1.63.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-playwright>=0.9.0",
+    "ruff>=0.16.10",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/interview_task"]
+
+[tool.pytest]
+minversion = "9.0"
+testpaths = ["tests"]
+addopts = ["--strict-markers", "--browser=chromium"]
+markers = [
+    "ui: frontend tests against saucedemo.com",
+    "api: API tests against restful-booker.herokuapp.com",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "PT"]
